@@ -70,9 +70,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        return $user;
     }
 
     /**
@@ -82,9 +82,32 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'firstname' => 'required|string|between:2,100',
+            'lastname' => 'required|string|between:2,100',
+            'username' => 'string|between:2,100',
+            'gender' => 'string|between:2,50',
+            'email' => 'required|string|email|max:100',
+            'password' => 'required|min:6',
+            'role'=> 'string|min:3'
+        ]);
+      
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->gender = $request->gender;
+        $user->contact = $request->contact;
+        $user->role = $request->role;
+        $user->save();
+
+        return response()->json([
+            'message' => 'user updated!',
+            'user' => $user
+        ]);
+
     }
 
     /**
@@ -93,8 +116,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($user)
     {
-        //
+        $user->delete();
+        return response()->json([
+            'message' => 'user deleted'
+        ]);
     }
 }
