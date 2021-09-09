@@ -35,6 +35,8 @@ Route::group([
 
     Route::apiResource('roles','RoleController');
     Route::apiResource('users','UserController');
+    Route::apiResource('tutorials','TutorialController');
+
 
 
 
