@@ -9,15 +9,18 @@ use App\Http\Requests\Role\UpdateRoleRequest;
 */
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
 
-    public function __construct()
+    private $userRepository;
+    public function __construct(UserRepository $userRepository)
     {
         $this->middleware('auth:api');
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -27,7 +30,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return UserResource::Collection(User::all());
+        $users = $this->userRepository->all();
+      //  return UserResource::Collection(User::all());
     }
 
     /**
@@ -116,7 +120,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($user)
+    public function destroy(User $user)
     {
         $user->delete();
         return response()->json([

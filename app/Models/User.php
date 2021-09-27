@@ -14,30 +14,30 @@ class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable , softDeletes;
 
-    public const ROLES = [
-        'admin' => 'admin',
-        'administration' => 'administration',
-        'Lecture' => 'Lecture',
-        'Ecriture' => 'Ecriture',
-        'Aucun' => 'Aucun rôle'
+    // public const ROLES = [
+    //     'admin' => 'admin',
+    //     'administration' => 'administration',
+    //     'Lecture' => 'Lecture',
+    //     'Ecriture' => 'Ecriture',
+    //     'Aucun' => 'Aucun rôle'
 
-    ];
+    // ];
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'username',
-        'email',
-        'password',
-        'firstname',
-        'lastname',
-        'gender',
-        'contact',
-        'role'
-    ];
+    // /**
+    //  * The attributes that are mass assignable.
+    //  *
+    //  * @var array
+    //  */
+    // protected $fillable = [
+    //     'username',
+    //     'email',
+    //     'password',
+    //     'firstname',
+    //     'lastname',
+    //     'gender',
+    //     'contact',
+    //     'role'
+    // ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -88,7 +88,11 @@ class User extends Authenticatable implements JWTSubject
     
     */
 
-   /* public function roles(){
-        return $this->belongsToMany('App\Role')->withTimestamps();
-    }*/
+   public function roles(){
+        return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+      // public function roles()
+    // {
+    //     return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+    // }
 }
