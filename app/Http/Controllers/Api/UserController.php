@@ -32,6 +32,7 @@ class UserController extends Controller
     {
         $users = $this->userRepository->all();
       //  return UserResource::Collection(User::all());
+      return $users;
     }
 
     /**
